@@ -1,5 +1,5 @@
 import '../App.css';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { fetchProducts } from '../api/index';
 
 interface Products {
@@ -15,6 +15,7 @@ interface Products {
 function Search() {
     const [value, setValue] = useState('');
     const [products, setProducts ] = useState<Array<Products>>([]);
+    const isMounted = useRef(false);
 
 
     const handleChange = useCallback(
@@ -26,7 +27,11 @@ function Search() {
     );
 
     useEffect(() => {
-        const fetch = fetchProducts(value);
+        /* will not be triggered on the 1st render
+         will display data if input is NOT empty */
+        if (isMounted.current && value.length) {
+            const fetch = fetchProducts(value);
+
         fetch
         .then(data => {
             console.log(data);
@@ -35,6 +40,10 @@ function Search() {
         .catch(error => {
             console.log(error.message)
         })
+        } else {
+            isMounted.current = true;
+        }
+        
     }, [value])
 
 
@@ -49,11 +58,11 @@ function Search() {
                     onChange={handleChange}
                 />
             </form>
-            {products.map((product, index) => {
+            {products && products.map((product, index) => {
                 return (
                     <div key={index}>
                         <p>{product.name}</p>
-                        < img src={product.image} />
+                         < img src={product.image} />
                         </div>
 
                 )
