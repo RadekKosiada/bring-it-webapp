@@ -1,7 +1,7 @@
 import '../App.css';
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { fetchProducts } from '../api/index';
-import placeholder from '../helpers/helpers';
+import formatPrice from '../helpers/formatPrice';
 
 interface Products {
     sku: string;
@@ -12,8 +12,6 @@ interface Products {
     basePrice: number;
     baseUnit: string;
 };
-
-placeholder(123);
 
 function Search() {
     const [value, setValue] = useState<string>('');
@@ -68,7 +66,7 @@ function Search() {
                 return (
                     <div key={product.sku}>
                         <p>{product.name}</p>
-                        <p>{`${product.price} €`}</p>
+                        <p>{`${formatPrice(product.price, 2)} €`}</p>
                         <p>{product.packing}</p>
                         <p>
                             {product.basePrice && <span>{product.basePrice} / </span>}
