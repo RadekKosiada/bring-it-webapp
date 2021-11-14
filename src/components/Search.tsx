@@ -1,12 +1,12 @@
 import '../App.css';
-import React, {useState, useCallback} from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { fetchProducts } from '../api/index';
 
 function Search() {
     const [value, setValue] = useState('')
 
 
-    const handleChange = useCallback (
+    const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             console.log(value)
             setValue(e.target.value);
@@ -14,22 +14,22 @@ function Search() {
         [value],
     );
 
+    useEffect(() => {
+        console.log('effect: ', value);
+    }, [value])
+
+
     return (
         <div>
-            <form
-            // onSubmit={}
-            >
-                <label htmlFor="">
-                    <input
-                        placeholder="Suche"
-                        id=""
-                        type="text"
-                        value={value}
-                        onChange={handleChange}
-                    />
-                </label>
+            <form>
+                <input
+                    placeholder="Suche"
+                    id=""
+                    type="text"
+                    value={value}
+                    onChange={handleChange}
+                />
             </form>
-
         </div>
     );
 }
