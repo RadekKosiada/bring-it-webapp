@@ -63,8 +63,10 @@ function Search() {
             </form>
             {products && products.map((product, index) => {
                 return (
-                    <div key={index}>
+                    <div key={product.sku}>
                         <p>{product.name}</p>
+                        <p>{`${product.price} €`}</p>
+                        <p>{product.packing.split(' ')[1]}.</p>
                         <img
                             src={product.image ? product.image :
                                 'https://via.placeholder.com/50'}
