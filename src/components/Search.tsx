@@ -1,6 +1,7 @@
 import '../App.css';
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { fetchProducts } from '../api/index';
+import placeholder from '../helpers/helpers';
 
 interface Products {
     sku: string;
@@ -11,6 +12,8 @@ interface Products {
     basePrice: number;
     baseUnit: string;
 };
+
+placeholder(123);
 
 function Search() {
     const [value, setValue] = useState<string>('');
@@ -66,7 +69,11 @@ function Search() {
                     <div key={product.sku}>
                         <p>{product.name}</p>
                         <p>{`${product.price} €`}</p>
-                        <p>{product.packing.split(' ')[1]}.</p>
+                        <p>{product.packing}</p>
+                        <p>
+                            {product.basePrice && <span>{product.basePrice} / </span>}
+                            {product.baseUnit && <span>{product.baseUnit}</span>}
+                        </p>
                         <img
                             src={product.image ? product.image :
                                 'https://via.placeholder.com/50'}
