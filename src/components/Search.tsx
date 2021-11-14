@@ -3,18 +3,19 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { fetchProducts } from '../api/index';
 
 interface Products {
-        sku: string;
-        name: string;
-        image: string;
-        packing: string;
-        price: number;
-        basePrice: number;
-        baseUnit: string;
+    sku: string;
+    name: string;
+    image: string;
+    packing: string;
+    price: number;
+    basePrice: number;
+    baseUnit: string;
 };
 
 function Search() {
-    const [value, setValue] = useState('');
-    const [products, setProducts ] = useState<Array<Products>>([]);
+    const [value, setValue] = useState<string>('');
+    const [errorMessage, setErrorMessage] = useState<string>('');
+    const [products, setProducts] = useState<Array<Products>>([]);
     const isMounted = useRef(false);
 
 
@@ -32,18 +33,20 @@ function Search() {
         if (isMounted.current && value.length) {
             const fetch = fetchProducts(value);
 
-        fetch
-        .then(data => {
-            console.log(data);
-            setProducts(data.products);
-        })
-        .catch(error => {
-            console.log(error.message)
-        })
+            fetch
+                .then(data => {
+                    console.log(data);
+                    setProducts(data.products);
+                    setErrorMessage('');
+                })
+                .catch(error => {
+                    console.log(error);
+                    setErrorMessage(error);
+                })
         } else {
             isMounted.current = true;
         }
-        
+
     }, [value])
 
 
@@ -62,11 +65,17 @@ function Search() {
                 return (
                     <div key={index}>
                         <p>{product.name}</p>
-                         < img src={product.image} />
-                        </div>
+                        < img src={product.image} />
+                    </div>
 
                 )
             })}
+            {errorMessage &&
+                <div>
+                    <p>{errorMessage}</p>
+                    <p>Bitte versuchen Sie es nochmal</p>
+                </div>
+            }
         </div>
     );
 }
