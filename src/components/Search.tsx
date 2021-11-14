@@ -65,10 +65,10 @@ function Search() {
                 return (
                     <div key={index}>
                         <p>{product.name}</p>
-                        <img 
-                        src={product.image ? product.image: 
-                        'https://via.placeholder.com/50'}
-                        alt={`image of ${product.name}`}
+                        <img
+                            src={product.image ? product.image :
+                                'https://via.placeholder.com/50'}
+                            alt={`image of ${product.name}`}
                         />
                     </div>
 
