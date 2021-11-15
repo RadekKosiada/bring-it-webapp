@@ -5,6 +5,7 @@ import { fetchProducts } from '../api/index';
 import Products from '../interfaces/Products'
 
 import Results from './Results';
+import Recommendations from './Recommendations';
 
 function Search() {
     const [value, setValue] = useState<string>('');
@@ -62,6 +63,7 @@ function Search() {
                     <p>Bitte versuchen Sie es nochmal</p>
                 </div>
             }
+            {!value && <Recommendations />}
         </div>
     );
 }
