@@ -27,7 +27,7 @@ export default function Results({ products }: { products: Array<Products> }) {
                                 {product.basePrice > 0 && <span>{product.basePrice}€ / </span>}
                                 {product.baseUnit !== '0' && <span>{product.baseUnit}</span>}
                             </p>
-                
+
                         </div>
                         <hr />
                     </div>

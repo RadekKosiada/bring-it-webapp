@@ -48,6 +48,7 @@ function Search() {
     return (
         <div>
             <input
+                className='search-input'
                 placeholder="Suche"
                 id=""
                 type="text"
