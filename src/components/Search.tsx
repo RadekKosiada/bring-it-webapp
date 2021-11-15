@@ -1,19 +1,10 @@
 import '../App.css';
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { fetchProducts } from '../api/index';
-import formatPrice from '../helpers/formatPrice';
+
+import Products from '../interfaces/Products'
 
 import Results from './Results';
-
-interface Products {
-    sku: string;
-    name: string;
-    image: string;
-    packing: string;
-    price: number;
-    basePrice: number;
-    baseUnit: string;
-};
 
 function Search() {
     const [value, setValue] = useState<string>('');

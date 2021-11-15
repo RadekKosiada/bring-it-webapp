@@ -2,16 +2,7 @@ import React from 'react';
 
 import formatPrice from '../helpers/formatPrice';
 
-
-interface Products {
-    sku: string;
-    name: string;
-    image: string;
-    packing: string;
-    price: number;
-    basePrice: number;
-    baseUnit: string;
-};
+import Products from '../interfaces/Products';
 
 export default function Results({ products }: { products: Array<Products> }) {
     return (
