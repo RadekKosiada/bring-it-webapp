@@ -3,6 +3,8 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { fetchProducts } from '../api/index';
 import formatPrice from '../helpers/formatPrice';
 
+import Results from './Results';
+
 interface Products {
     sku: string;
     name: string;
@@ -43,6 +45,7 @@ function Search() {
                 .catch(error => {
                     console.log(error);
                     setErrorMessage(error);
+                    setProducts([]);
                 })
         } else {
             isMounted.current = true;
@@ -62,26 +65,8 @@ function Search() {
                     onChange={handleChange}
                 />
             </form>
-            {products && products.map((product, index) => {
-                return (
-                    <div key={product.sku}>
-                        <p>{product.name}</p>
-                        <p>{`${formatPrice(product.price, 2)} €`}</p>
-                        <p>{product.packing}</p>
-                        <p>
-                            {product.basePrice && <span>{product.basePrice} / </span>}
-                            {product.baseUnit && <span>{product.baseUnit}</span>}
-                        </p>
-                        <img
-                            src={product.image ? product.image :
-                                'https://via.placeholder.com/50'}
-                            alt={`image of ${product.name}`}
-                        />
-                    </div>
-
-                )
-            })}
-            {errorMessage &&
+            {(value && products && !errorMessage) && <Results products={products} />}
+            {(value && errorMessage) &&
                 <div>
                     <p>{errorMessage}</p>
                     <p>Bitte versuchen Sie es nochmal</p>
