@@ -12,8 +12,8 @@ function Recommendations() {
             {recommendations.map((hint, index) => {
                 return (
                     <QueryButton
+                        key={index}
                         title={hint}
-                        index={index}
                     />
                 )
             })}

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function QueryButton({ title, index }: { title: string; index: number }) {
+function QueryButton({ title }: { title: string }) {
 
     const [query, setQuery] = useState('');
 
@@ -11,9 +11,7 @@ function QueryButton({ title, index }: { title: string; index: number }) {
     }
 
     return (
-        <div>
-            <button key={index} onClick={handleClick}>{title}</button>
-        </div>
+        <button onClick={handleClick}>{title}</button>
     )
 }
 
