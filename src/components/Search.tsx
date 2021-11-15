@@ -47,15 +47,13 @@ function Search() {
 
     return (
         <div>
-            <form>
-                <input
-                    placeholder="Suche"
-                    id=""
-                    type="text"
-                    value={value}
-                    onChange={handleChange}
-                />
-            </form>
+            <input
+                placeholder="Suche"
+                id=""
+                type="text"
+                value={value}
+                onChange={handleChange}
+            />
             {(value && products && !errorMessage) && <Results products={products} />}
             {(value && errorMessage) &&
                 <div>
