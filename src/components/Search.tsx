@@ -18,6 +18,8 @@ function Search() {
         (e: React.ChangeEvent<HTMLInputElement>) => {
             console.log(value)
             setValue(e.target.value);
+            // Set buttonQuery to empty string when user has typed in input
+            setButtonQuery('');
         },
         [value],
     );
@@ -25,6 +27,8 @@ function Search() {
     const getQuery = (feedback: string) => {
         console.log('FF', feedback)
         setButtonQuery(feedback);
+        // Set value to empty string when user looks at recommendations
+        setValue('');
     }
 
     useEffect(() => {
