@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 
-function QueryButton({ title }: { title: string }) {
+type QueryButtonProps = {
+    title: string,
+    getQuery: (feedback: string) =>  void
+}
 
-    const [query, setQuery] = useState('');
+function QueryButton({ title, getQuery }: { title: string, getQuery: (feedback: string) =>  void}) {
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        setQuery((e.target as HTMLButtonElement).innerHTML);
-        console.log(query)
+        getQuery((e.target as HTMLButtonElement).innerHTML);
     }
 
     return (
@@ -15,5 +17,5 @@ function QueryButton({ title }: { title: string }) {
     )
 }
 
-export default QueryButton
+export default QueryButton;
 
