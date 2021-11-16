@@ -13,7 +13,7 @@ function QueryButton({ title, getQuery }: { title: string, getQuery: QueryButton
     }
 
     return (
-        <button onClick={handleClick}>{title}</button>
+        <button className="query-button" onClick={handleClick}>{title}</button>
     )
 }
 
