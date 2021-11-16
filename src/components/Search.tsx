@@ -12,8 +12,7 @@ function Search() {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [products, setProducts] = useState<Array<Products>>([]);
     const [buttonQuery, setButtonQuery] = useState('');
-    const isMounted = useRef(false);
-    
+
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             console.log(value)
@@ -59,7 +58,7 @@ function Search() {
                     setErrorMessage(error);
                     setProducts([]);
                 })
-        } 
+        }
     }, [value, buttonQuery])
 
     return (
