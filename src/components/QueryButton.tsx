@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 
-type QueryButtonProps = {
-    title: string,
-    getQuery: (feedback: string) =>  void
-}
+// type QueryButtonProps = {
+//     title: string,
+//     getQuery: (feedback: string) =>  void
+// }
 
 function QueryButton({ title, getQuery }: { title: string, getQuery: (feedback: string) =>  void}) {
 

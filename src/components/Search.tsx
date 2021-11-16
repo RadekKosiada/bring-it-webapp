@@ -11,9 +11,9 @@ function Search() {
     const [value, setValue] = useState<string>('');
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [products, setProducts] = useState<Array<Products>>([]);
+    const [buttonQuery, setButtonQuery] = useState('');
     const isMounted = useRef(false);
-
-
+    
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             console.log(value)
@@ -21,6 +21,11 @@ function Search() {
         },
         [value],
     );
+
+    const getQuery = (feedback: string) => {
+        setButtonQuery(feedback);
+        console.log('feedback from REC: ', feedback);
+    }
 
     useEffect(() => {
         /* will not be triggered on the 1st render
@@ -43,7 +48,7 @@ function Search() {
             isMounted.current = true;
         }
 
-    }, [value])
+    }, [value, buttonQuery])
 
 
     return (
@@ -63,7 +68,7 @@ function Search() {
                     <p>Bitte versuchen Sie es nochmal</p>
                 </div>
             }
-            {!value && <Recommendations />}
+            {!value && <Recommendations getQuery={getQuery} />}
         </div>
     );
 }
