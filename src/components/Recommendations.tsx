@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import QueryButton from './QueryButton';
 
-function Recommendations({ getQuery }: { getQuery: (feedback: string) =>  void}) {
+function Recommendations({ getQuery }: { getQuery: (feedback: string) => void }) {
 
     const recommendations = ['Wiesenhof', 'Eiscreme', 'Langnese',
         'Eier', 'Kidneybohnen'];
@@ -15,8 +15,8 @@ function Recommendations({ getQuery }: { getQuery: (feedback: string) =>  void})
                     <QueryButton
                         key={index}
                         title={hint}
-                        getQuery= {getQuery}
-                    
+                        getQuery={getQuery}
+
                     />
                 )
             })}
