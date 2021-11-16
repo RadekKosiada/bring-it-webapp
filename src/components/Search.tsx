@@ -31,7 +31,7 @@ function Search() {
         /* will not be triggered on the 1st render
          will display data if input is NOT empty */
         if (buttonQuery.length || value.length) {
-            
+
             let searchQuery;
             if (value.length) {
                 searchQuery = value;
@@ -40,7 +40,8 @@ function Search() {
             } else {
                 searchQuery = ''
             }
-            console.log(searchQuery)
+            console.log(searchQuery);
+
             const fetch = fetchProducts(searchQuery);
 
             fetch
@@ -57,7 +58,6 @@ function Search() {
         } 
     }, [value, buttonQuery])
 
-
     return (
         <div>
             <input
@@ -68,8 +68,8 @@ function Search() {
                 value={value}
                 onChange={handleChange}
             />
-            {(value &&  products && !errorMessage) && <Results products={products} />}
-            {(value && errorMessage) &&
+            {((value || buttonQuery) && products && !errorMessage) && <Results products={products} />}
+            {((value || buttonQuery) && errorMessage) &&
                 <div>
                     <p>{errorMessage}</p>
                     <p>Bitte versuchen Sie es nochmal</p>
