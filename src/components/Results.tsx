@@ -17,7 +17,7 @@ export default function Results({ products }: { products: Array<Products> }) {
                         <img
                             src={product.image ? product.image :
                                 'https://via.placeholder.com/50'}
-                            alt={`image of ${product.name}`}
+                            alt={product.name}
                         />
                         <div className="product-details">
                             <p>{product.name}</p>
