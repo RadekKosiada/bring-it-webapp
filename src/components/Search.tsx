@@ -28,31 +28,14 @@ function Search() {
     }
 
     useEffect(() => {
-        console.log('buttonQuery Effect: ', buttonQuery);
-
-        const fetch = fetchProducts(buttonQuery);
-        fetch
-        .then(data => {
-            console.log(data);
-            setProducts(data.products);
-            setErrorMessage('');
-        })
-        .catch(error => {
-            console.log(error);
-            setErrorMessage(error);
-            setProducts([]);
-        })
-    }, [buttonQuery])
-
-    useEffect(() => {
         /* will not be triggered on the 1st render
          will display data if input is NOT empty */
-        if (isMounted.current && value.length) {
-            console.log(buttonQuery)
+        if (buttonQuery.length || value.length) {
+            
             let searchQuery;
             if (value.length) {
                 searchQuery = value;
-            } else if (buttonQuery && typeof buttonQuery !== 'undefined') {
+            } else if (buttonQuery.length) {
                 searchQuery = buttonQuery
             } else {
                 searchQuery = ''
@@ -71,10 +54,7 @@ function Search() {
                     setErrorMessage(error);
                     setProducts([]);
                 })
-        } else {
-            isMounted.current = true;
-        }
-
+        } 
     }, [value, buttonQuery])
 
 
