@@ -8,8 +8,8 @@ function Recommendations({ getQuery }: { getQuery: (feedback: string) => void })
         'Eier', 'Kidneybohnen'];
 
     return (
-        <div>
-            <p>Derzeit beliebt:</p>
+        <div className="recommendations-container">
+            <p className="recommendations-title">Derzeit beliebt:</p>
             {recommendations.map((hint, index) => {
                 return (
                     <QueryButton

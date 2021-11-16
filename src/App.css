@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   padding: 30px;
   min-width: 370px;
 }
@@ -64,4 +64,9 @@ p {
 
 .query-button:hover {
   box-shadow: rgb(65 65 65 / 15%) 0px 4px 7px 0px;
+}
+
+.recommendations-title {
+  text-align: left;
+  font-weight: 800;
 }
