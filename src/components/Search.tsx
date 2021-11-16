@@ -68,6 +68,7 @@ function Search() {
                 value={value}
                 onChange={handleChange}
             />
+            {(!value) && <Recommendations getQuery={getQuery} />}
             {((value || buttonQuery) && products && !errorMessage) && <Results products={products} />}
             {((value || buttonQuery) && errorMessage) &&
                 <div>
@@ -75,7 +76,6 @@ function Search() {
                     <p>Bitte versuchen Sie es nochmal</p>
                 </div>
             }
-            {(!value) && <Recommendations getQuery={getQuery} />}
         </div>
     );
 }
