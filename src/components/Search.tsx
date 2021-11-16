@@ -23,15 +23,42 @@ function Search() {
     );
 
     const getQuery = (feedback: string) => {
+        console.log('FF', feedback)
         setButtonQuery(feedback);
-        console.log('feedback from REC: ', feedback);
     }
+
+    useEffect(() => {
+        console.log('buttonQuery Effect: ', buttonQuery);
+
+        const fetch = fetchProducts(buttonQuery);
+        fetch
+        .then(data => {
+            console.log(data);
+            setProducts(data.products);
+            setErrorMessage('');
+        })
+        .catch(error => {
+            console.log(error);
+            setErrorMessage(error);
+            setProducts([]);
+        })
+    }, [buttonQuery])
 
     useEffect(() => {
         /* will not be triggered on the 1st render
          will display data if input is NOT empty */
         if (isMounted.current && value.length) {
-            const fetch = fetchProducts(value);
+            console.log(buttonQuery)
+            let searchQuery;
+            if (value.length) {
+                searchQuery = value;
+            } else if (buttonQuery && typeof buttonQuery !== 'undefined') {
+                searchQuery = buttonQuery
+            } else {
+                searchQuery = ''
+            }
+            console.log(searchQuery)
+            const fetch = fetchProducts(searchQuery);
 
             fetch
                 .then(data => {
@@ -61,14 +88,14 @@ function Search() {
                 value={value}
                 onChange={handleChange}
             />
-            {(value && products && !errorMessage) && <Results products={products} />}
+            {(value &&  products && !errorMessage) && <Results products={products} />}
             {(value && errorMessage) &&
                 <div>
                     <p>{errorMessage}</p>
                     <p>Bitte versuchen Sie es nochmal</p>
                 </div>
             }
-            {!value && <Recommendations getQuery={getQuery} />}
+            {(!value) && <Recommendations getQuery={getQuery} />}
         </div>
     );
 }
