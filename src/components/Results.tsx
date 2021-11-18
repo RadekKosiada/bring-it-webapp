@@ -15,7 +15,7 @@ export default function Results({ products }: { products: Array<Products> }) {
                         key={product.sku}>
 
                         <img
-                            src={product.image ? product.image :
+                            src={product.image ? `${product.image}?imwidth=110` :
                                 'https://via.placeholder.com/50'}
                             alt={product.name}
                         />
