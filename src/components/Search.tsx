@@ -12,16 +12,22 @@ function Search() {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [products, setProducts] = useState<Array<Products>>([]);
     const [buttonQuery, setButtonQuery] = useState('');
+    const [query, setQuery] = useState('');
+    const timeoutId: React.MutableRefObject<any> = useRef();
+    const [counter, setCounter] = useState(0);
+    const makingCall = React.useRef(false);
 
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            console.log(value)
+            console.log(value);
+
             setValue(e.target.value);
             // Set buttonQuery to empty string when user has typed in input
             setButtonQuery('');
         },
         [value],
     );
+
 
     const getQuery = (feedback: string) => {
         console.log('FF', feedback)
@@ -34,8 +40,7 @@ function Search() {
         /* will not be triggered on the 1st render
          will display data if input is NOT empty */
         if (buttonQuery.length || value.length) {
-
-            let searchQuery;
+            let searchQuery: string;
             if (value.length) {
                 searchQuery = value;
             } else if (buttonQuery.length) {
@@ -45,19 +50,40 @@ function Search() {
             }
             console.log(searchQuery);
 
-            const fetch = fetchProducts(searchQuery);
+            if (!makingCall.current) {
+                makingCall.current = true;
 
-            fetch
-                .then(data => {
-                    console.log(data);
-                    setProducts(data.products);
-                    setErrorMessage('');
-                })
-                .catch(error => {
-                    console.log(error);
-                    setErrorMessage(error);
-                    setProducts([]);
-                })
+                setTimeout(() => {
+                    makingCall.current = false;
+
+                    let counter = 0;
+                    const counting = setInterval(() => {
+                        counter++;
+                        console.log(counter);
+                    }, 10)
+
+    
+                    const fetch = fetchProducts(searchQuery);
+    
+                    fetch
+                        .then(data => {
+                            console.log(data);
+                            setProducts(data.products);
+                            setErrorMessage('');
+                            makingCall.current = false;
+                            clearInterval(counting);
+                            counter = 0;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            setErrorMessage(error);
+                            setProducts([]);
+                        })
+    
+                }, 2000);
+            }
+            
+
         }
     }, [value, buttonQuery])
 
