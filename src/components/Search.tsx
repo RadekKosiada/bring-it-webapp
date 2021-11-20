@@ -12,6 +12,7 @@ function Search() {
     const [errorMessage, setErrorMessage] = useState<string>('');
     const [products, setProducts] = useState<Array<Products>>([]);
     const [buttonQuery, setButtonQuery] = useState('');
+    const [delayedValue, setDelayedValue] = useState('');
 
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,21 +24,33 @@ function Search() {
         [value],
     );
 
+    useEffect(() => {
+        let delay = setTimeout(() => {
+            console.log('stopped typing');
+            setDelayedValue(value);
+        }, 800);
+
+        return () => {
+            console.log('typing');
+            clearTimeout(delay);
+        }
+
+    }, [value])
+
     const getQuery = (feedback: string) => {
         console.log('FF', feedback)
         setButtonQuery(feedback);
         // Set value to empty string when user looks at recommendations
-        setValue('');
-    }
+    };
 
     useEffect(() => {
         /* will not be triggered on the 1st render
          will display data if input is NOT empty */
-        if (buttonQuery.length || value.length) {
+        if (buttonQuery.length || delayedValue.length) {
 
             let searchQuery;
-            if (value.length) {
-                searchQuery = value;
+            if (delayedValue.length) {
+                searchQuery = delayedValue;
             } else if (buttonQuery.length) {
                 searchQuery = buttonQuery
             } else {
@@ -59,7 +72,7 @@ function Search() {
                     setProducts([]);
                 })
         }
-    }, [value, buttonQuery])
+    }, [delayedValue, buttonQuery])
 
     return (
         <div>
@@ -71,9 +84,9 @@ function Search() {
                 value={value}
                 onChange={handleChange}
             />
-            {(!value) && <Recommendations getQuery={getQuery} />}
-            {((value || buttonQuery) && products && !errorMessage) && <Results products={products} />}
-            {((value || buttonQuery) && errorMessage) &&
+            {(!delayedValue) && <Recommendations getQuery={getQuery} />}
+            {((delayedValue || buttonQuery) && products && !errorMessage) && <Results products={products} />}
+            {((delayedValue || buttonQuery) && errorMessage) &&
                 <div>
                     <p>{errorMessage}</p>
                     <p>Bitte versuchen Sie es nochmal</p>
