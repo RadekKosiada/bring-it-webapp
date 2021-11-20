@@ -13,6 +13,7 @@ function Search() {
     const [products, setProducts] = useState<Array<Products>>([]);
     const [buttonQuery, setButtonQuery] = useState('');
     const [delayedValue, setDelayedValue] = useState('');
+    const isMounted = useRef(false);
 
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,14 +26,18 @@ function Search() {
     );
 
     useEffect(() => {
-        let delay = setTimeout(() => {
-            console.log('stopped typing');
-            setDelayedValue(value);
-        }, 800);
+        if (isMounted.current) {
+            let delay = setTimeout(() => {
+                console.log('stopped typing');
+                setDelayedValue(value);
+            }, 800);
 
-        return () => {
-            console.log('typing');
-            clearTimeout(delay);
+            return () => {
+                console.log('typing');
+                clearTimeout(delay);
+            }
+        } else {
+            isMounted.current = true;
         }
 
     }, [value])
