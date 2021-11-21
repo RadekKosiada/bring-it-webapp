@@ -42,9 +42,15 @@ function Search() {
 
     }, [value])
 
-    const getQuery = (feedback: string) => {
+    /* applied useCallback as the function is passed 
+    in props to (grand)child component
+    to make sure that 'getQuery' is not re-rendered in QueryButton 
+    on every render of Search and so the QueryButtons 
+    don't need to be rerendered 
+    */
+    const getQuery = useCallback((feedback: string) => {
         setButtonQuery(feedback);
-    };
+    }, [setButtonQuery]);
 
     useEffect(() => {
         /* will not be triggered on the 1st render
