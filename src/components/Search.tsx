@@ -26,12 +26,18 @@ function Search() {
     );
 
     useEffect(() => {
+        // prevents useEffect to be triggered on the 1st component's render
         if (isMounted.current) {
             let delay = setTimeout(() => {
                 console.log('stopped typing');
                 setDelayedValue(value);
             }, 800);
 
+            /* clean up function runs before the setTimeout and cancels it;
+            thus as long as user types and value changes it will run 
+            and will not allow delayedValue to be set; 
+            As soon as it's set, another useEffect with API request can be triggered;
+            */
             return () => {
                 console.log('typing');
                 clearTimeout(delay);
