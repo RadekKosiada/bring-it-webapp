@@ -1,3 +1,5 @@
+import Products from '../interfaces/Products'
+
 const products = [
     {
       sku: '41595440081',
@@ -1210,9 +1212,13 @@ const products = [
         if (Math.random() < 0.01) {
           reject("'network' error");
         } else {
-          const filteredProducts = products.filter(p =>
-            JSON.stringify(p).includes(query),
-          );
+          const filteredProducts: Array<Products> = [];
+          // makes search query/user's input case insensitive
+          products.forEach(p  => {
+            if(p.name.toLowerCase().includes(query.toLowerCase())) {
+              filteredProducts.push(p)
+            }
+          })
           resolve({
             totalResults: filteredProducts.length,
             products: filteredProducts,
