@@ -15,14 +15,11 @@ function Search() {
     const [delayedValue, setDelayedValue] = useState('');
     const isMounted = useRef(false);
 
-    const handleChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            setValue(e.target.value);
-            // Set buttonQuery to empty string when user has typed in input
-            setButtonQuery('');
-        },
-        [value],
-    );
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
+        // Sets buttonQuery to an empty string when user has typed in the input
+        setButtonQuery('');
+    };
 
     useEffect(() => {
         // prevents useEffect to be triggered on the 1st component's render
