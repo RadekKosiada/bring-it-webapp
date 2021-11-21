@@ -17,7 +17,6 @@ function Search() {
 
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
-            console.log(value)
             setValue(e.target.value);
             // Set buttonQuery to empty string when user has typed in input
             setButtonQuery('');
@@ -29,7 +28,6 @@ function Search() {
         // prevents useEffect to be triggered on the 1st component's render
         if (isMounted.current) {
             let delay = setTimeout(() => {
-                console.log('stopped typing');
                 setDelayedValue(value);
             }, 800);
 
@@ -39,7 +37,6 @@ function Search() {
             As soon as it's set, another useEffect with API request can be triggered;
             */
             return () => {
-                console.log('typing');
                 clearTimeout(delay);
             }
         } else {
@@ -49,14 +46,13 @@ function Search() {
     }, [value])
 
     const getQuery = (feedback: string) => {
-        console.log('FF', feedback)
         setButtonQuery(feedback);
-        // Set value to empty string when user looks at recommendations
     };
 
     useEffect(() => {
         /* will not be triggered on the 1st render
-         will display data if input is NOT empty */
+         and will fetch data 
+         only if buttonQuery or delayedValue are available */
         if (buttonQuery.length || delayedValue.length) {
 
             let searchQuery;
@@ -67,18 +63,15 @@ function Search() {
             } else {
                 searchQuery = ''
             }
-            console.log(searchQuery);
 
             const fetch = fetchProducts(searchQuery);
 
             fetch
                 .then(data => {
-                    console.log(data);
                     setProducts(data.products);
                     setErrorMessage('');
                 })
                 .catch(error => {
-                    console.log(error);
                     setErrorMessage(error);
                     setProducts([]);
                 })
