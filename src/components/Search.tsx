@@ -28,36 +28,21 @@ function Search() {
                 setDelayedValue(value);
             }, 800);
 
-            /* clean up function runs before the setTimeout and cancels it;
-            thus as long as user types and value changes it will run 
-            and will not allow delayedValue to be set; 
-            As soon as it's set, another useEffect with API request can be triggered;
-            */
             return () => {
                 clearTimeout(delay);
             }
         } else {
             isMounted.current = true;
         }
-
     }, [value])
 
-    /* applied useCallback as the function is passed 
-    in props to (grand)child component
-    to make sure that 'getQuery' is not re-rendered in QueryButton 
-    on every render of Search and so the QueryButtons 
-    don't need to be rerendered 
-    */
     const getQuery = useCallback((feedback: string) => {
         setButtonQuery(feedback);
     }, [setButtonQuery]);
 
     useEffect(() => {
-        /* will not be triggered on the 1st render
-         and will fetch data 
-         only if buttonQuery or delayedValue are available */
         if (buttonQuery.length || delayedValue.length) {
-
+           
             let searchQuery;
             if (delayedValue.length) {
                 searchQuery = delayedValue;
