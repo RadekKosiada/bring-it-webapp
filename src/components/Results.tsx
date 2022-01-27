@@ -4,9 +4,10 @@ import formatPrice from '../helpers/formatPrice';
 
 import Products from '../interfaces/Products';
 
-export default function Results({ products }: { products: Array<Products> }) {
+export default function Results({ products, loadingSign }: { products: Array<Products>, loadingSign: string }) {
     return (
         <div className="results-container">
+            <p>{loadingSign}</p>
             <p className="results-sum">Ergebnisse: {products.length}</p>
             {products && products.map((product) => {
                 return (

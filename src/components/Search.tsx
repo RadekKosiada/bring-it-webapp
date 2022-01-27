@@ -14,6 +14,7 @@ function Search() {
     const [products, setProducts] = useState<Array<Products>>([]);
     const [buttonQuery, setButtonQuery] = useState('');
     const [delayedValue, setDelayedValue] = useState('');
+    const [loadingSign, setLoadingSign] = useState<string>('');
     const isMounted = useRef(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,15 +55,22 @@ function Search() {
             }
 
             const fetch = fetchProducts(searchQuery);
+            // setting Loading sign before fetching products
+            // also deleting previous array of products and error message before a new fetch
+            setLoadingSign('LOADING...');
+            setProducts([]);
+            setErrorMessage('');
 
             fetch
                 .then(data => {
                     setProducts(data.products);
                     setErrorMessage('');
+                    setLoadingSign('');
                 })
                 .catch(error => {
                     setErrorMessage(error);
                     setProducts([]);
+                    setLoadingSign('');
                 })
         }
     }, [delayedValue, buttonQuery])
@@ -78,7 +86,7 @@ function Search() {
                 onChange={handleChange}
             />
             {(!delayedValue) && <Recommendations getQuery={getQuery} />}
-            {((delayedValue || buttonQuery) && products && !errorMessage) && <Results products={products} />}
+            {((delayedValue || buttonQuery) && products && !errorMessage) && <Results products={products} loadingSign={loadingSign} />}
             {((delayedValue || buttonQuery) && errorMessage) &&
                 <ErrorMessage errorMessage={errorMessage} />}
         </div>
