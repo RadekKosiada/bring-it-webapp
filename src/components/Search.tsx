@@ -6,6 +6,7 @@ import Products from '../interfaces/Products'
 
 import Results from './Results';
 import Recommendations from './Recommendations';
+import ErrorMessage from './ErrorMessage';
 
 function Search() {
     const [value, setValue] = useState<string>('');
@@ -42,7 +43,7 @@ function Search() {
 
     useEffect(() => {
         if (buttonQuery.length || delayedValue.length) {
-           
+
             let searchQuery;
             if (delayedValue.length) {
                 searchQuery = delayedValue;
@@ -79,11 +80,7 @@ function Search() {
             {(!delayedValue) && <Recommendations getQuery={getQuery} />}
             {((delayedValue || buttonQuery) && products && !errorMessage) && <Results products={products} />}
             {((delayedValue || buttonQuery) && errorMessage) &&
-                <div>
-                    <p>{errorMessage}</p>
-                    <p>Bitte versuchen Sie es nochmal</p>
-                </div>
-            }
+                <ErrorMessage errorMessage={errorMessage} />}
         </div>
     );
 }
