@@ -8,6 +8,7 @@ function LoadingSign() {
 
   return (
     <div>
+      <div className="overlay" />
       <FontAwesomeIcon className="loading-sign" icon={faSpinner} />
     </div>
   )
