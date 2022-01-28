@@ -1,9 +1,9 @@
 import React from 'react';
 
-function LoadingSign({ loadingSign }: { loadingSign: string }) {
-  
+function LoadingSign() {
+
   return (
-    <p>{loadingSign}</p>
+    <p>LOADING...</p>
   )
 }
 

@@ -6,11 +6,11 @@ import Products from '../interfaces/Products';
 import LoadingSign from './LoadingSign';
  
 
-export default function Results({ products, loadingSign }: { products: Array<Products>, loadingSign: string }) {
+export default function Results({ products, loadingSign }: { products: Array<Products>, loadingSign: boolean }) {
     return (
         <div className="results-container">
 
-            {loadingSign && <LoadingSign loadingSign={loadingSign}/>}
+            {loadingSign && <LoadingSign/>}
 
             <p className="results-sum">Ergebnisse: {products.length}</p>
             {products && products.map((product) => {
