@@ -64,3 +64,8 @@ p {
   text-align: left;
   font-weight: 800;
 }
+
+.loading-sign {
+  text-align: center;
+  margin-top: 50px;
+}

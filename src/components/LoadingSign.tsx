@@ -3,7 +3,7 @@ import React from 'react';
 function LoadingSign() {
 
   return (
-    <p>LOADING...</p>
+    <p className="loading-sign">LOADING...</p>
   )
 }
 
