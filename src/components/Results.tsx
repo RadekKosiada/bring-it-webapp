@@ -3,11 +3,15 @@ import React from 'react';
 import formatPrice from '../helpers/formatPrice';
 
 import Products from '../interfaces/Products';
+import LoadingSign from './LoadingSign';
+ 
 
 export default function Results({ products, loadingSign }: { products: Array<Products>, loadingSign: string }) {
     return (
         <div className="results-container">
-            <p>{loadingSign}</p>
+
+            {loadingSign && <LoadingSign loadingSign={loadingSign}/>}
+
             <p className="results-sum">Ergebnisse: {products.length}</p>
             {products && products.map((product) => {
                 return (
